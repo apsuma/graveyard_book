@@ -1,0 +1,15 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Graveyard Book{% endblock %}
+
+{% block content %}
+    <div class="container embed-responsive embed-responsive-16by9">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/P_UUVwTaemk?rel=0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <br>
+    <h3 class="manu">Graveyard Book is a creation of Neil Gaiman. Il you want to discover more from his writings,<a href="http://www.neilgaiman.com/"> go to this place</a></h3>
+    <br>
+    <h5>Send us a message !</h5>
+    <br>
+    {% include 'Character/_formAbout.html.twig' %}
+{% endblock %}

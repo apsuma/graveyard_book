@@ -1,0 +1,21 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Graveyard Book{% endblock %}
+
+{% block content %}
+    <div class="col-12 col-sm-4">
+        <div class="card bg-white rounded text-dark" >
+            <img class="card-img-top" src="{{ character.picture }}" width="150px" alt="Card image cap">
+            <div class="card-body">
+                <h5 class="card-title">{{ character.name }}</h5>
+                <h6 class="card-subtitle mb-2">{{character.state}}</h6>
+                <p class="card-text">{{ character.description }}</p>
+            </div>
+            <div class="d-flex justify-content-around">
+                <a type="button" class="btn btn-info" href="/Character/edit/{{ character.id }}">Edit</a>
+                <a type="button" class="btn btn-warning" href="/Character/delete/{{ character.id }}">Delete</a>
+                <a type="button" class="btn btn-secondary" href="/Character/index">Back</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

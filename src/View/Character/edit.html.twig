@@ -1,0 +1,10 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Graveyard Book - edit{% endblock %}
+
+{% block content %}
+<h1>Edit character {{ character.name }}</h1>
+{% include 'Character/_formChar.html.twig' %}
+<a type="button" class="btn btn-secondary d-flex justify-content-center" href="/character/show/{{ character.id }}">Back<a/>
+    {% endblock %}
+
