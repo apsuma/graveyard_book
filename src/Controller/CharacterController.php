@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Model\CharacterManager;
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\PHPMailer;
 
 class CharacterController extends AbstractController
 {
@@ -108,17 +110,35 @@ class CharacterController extends AbstractController
     public function about()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $character = [
-                'contactName' => $_POST['contactName'],
-                'contactEmail' => $_POST['contactEmail'],
-                'content' => $_POST['content'],
-                'subject' => $_POST['subject'],
-            ];
-            $sentence = $character['contactName'] . '-from: ' . $character['contactEmail'] . 'message :' .
-                $_POST['content'];
-            $toDest = 'delphine.belet@gmail.com';
-            $subject = 'blog Graveyard -' . $_POST['subject'];
-            mail($toDest, $subject, $sentence);
+            date_default_timezone_set('Etc/UTC');
+            $mail = new PHPMailer(true);
+
+            try {
+                //Server settings
+                $mail->isSMTP();                                            // Send using SMTP
+                $mail->Host       = 'localhost';                    // Set the SMTP server to send through
+                $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+                $mail->Username   = 'delphine.belet@gmail.com';                     // SMTP username
+                $mail->Password   = 'secret';                               // SMTP password
+                $mail->Port       = 465;                                    // TCP port to connect to
+
+                //Recipients
+                $mail->setFrom('delphine.belet@gmail.com', 'Mailer');
+                $mail->addAddress('delphine.belet@gmail.com', 'User');     // Add a recipient
+
+                // Content
+                $mail->isHTML(false);                                  // Set email format to HTML
+                $mail->Subject =  $_POST['subject'];
+                $mail->Body    = <<<EOT
+Email: {$_POST['contactEmail']}
+Name: {$_POST['contactName']}
+Message: {$_POST['content']}
+EOT;
+                $mail->send();
+                echo 'Message has been sent';
+            } catch (Exception $e) {
+                echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            }
         }
         return $this->twig->render('/Character/about.html.twig');
     }

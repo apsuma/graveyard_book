@@ -1,4 +1,5 @@
 # GraveyardBook
+GraveyardBook is a personnal project made at the end of the second month of my formation at Wild Code School Nantes (2019, october).
 
 ## Description
 
